@@ -9,15 +9,17 @@ let elapsedMs = 0;
 
 function timeToString(millis){
   
-      const ms = millis % 1000; //経過ミリ秒
+      const ms = (millis % 1000) % 60; //経過ミリ秒
       const s = Math.floor(millis / 1000) % 60; //経過秒数
       const m =  Math.floor(millis / 1000 / 60) % 60;//経過分数
+      const h = Math.floor(millis / 1000 / 60 / 60);
       
-      const msStr = ms.toString().padStart(3, '0');
+      const msStr = ms.toString().padStart(2, '0');
       const sStr = s.toString().padStart(2, '0');
       const mStr = m.toString().padStart(2, '0');
+      const hStr = h.toString().padStart(2, '0');
       
-      return `${mStr}:${sStr}:${msStr}`;
+      return `${hStr}:${mStr}:${sStr}:${msStr}`;
     }
 
 start.addEventListener('click', () => {
@@ -49,11 +51,9 @@ stop.addEventListener('click', function(e) {
 reset.addEventListener('click', function(e) {
     clearInterval(timerId);
     elapsedMs = 0;
-    StopWatch.textContent = '00.00.000';
+    StopWatch.textContent = '00:00:00:00';
     
     start.disabled = false;
     stop.disabled = true;
     reset.disabled = true;
 });
-
-
